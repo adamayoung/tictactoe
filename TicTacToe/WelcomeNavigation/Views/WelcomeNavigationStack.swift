@@ -46,7 +46,3 @@ struct WelcomeNavigationStack: View {
         }
     }
 }
-
-//#Preview {
-//    WelcomeNavigationStack()
-//}

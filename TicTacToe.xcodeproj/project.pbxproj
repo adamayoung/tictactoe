@@ -11,7 +11,6 @@
 		498869B92DAE41CC00F8B012 /* SwiftRedux in Frameworks */ = {isa = PBXBuildFile; productRef = 498869B82DAE41CC00F8B012 /* SwiftRedux */; };
 		49886A4C2DAE515200F8B012 /* LoginFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 49886A4B2DAE515200F8B012 /* LoginFeature */; };
 		49886A4E2DAE515600F8B012 /* GameFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 49886A4D2DAE515600F8B012 /* GameFeature */; };
-		49886A502DAE515A00F8B012 /* ScoreboardFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 49886A4F2DAE515A00F8B012 /* ScoreboardFeature */; };
 		49886A532DAE595300F8B012 /* WelcomeFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 49886A522DAE595300F8B012 /* WelcomeFeature */; };
 /* End PBXBuildFile section */
 
@@ -44,7 +43,6 @@
 			membershipExceptions = (
 				GameFeature,
 				LoginFeature,
-				ScoreboardFeature,
 				WelcomeFeature,
 			);
 			target = 49C09FD72DAE3F410067F51E /* TicTacToe */;
@@ -82,7 +80,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49886A502DAE515A00F8B012 /* ScoreboardFeature in Frameworks */,
 				49886A4C2DAE515200F8B012 /* LoginFeature in Frameworks */,
 				49886A532DAE595300F8B012 /* WelcomeFeature in Frameworks */,
 				49886A4E2DAE515600F8B012 /* GameFeature in Frameworks */,
@@ -163,7 +160,6 @@
 				498869B82DAE41CC00F8B012 /* SwiftRedux */,
 				49886A4B2DAE515200F8B012 /* LoginFeature */,
 				49886A4D2DAE515600F8B012 /* GameFeature */,
-				49886A4F2DAE515A00F8B012 /* ScoreboardFeature */,
 				49886A522DAE595300F8B012 /* WelcomeFeature */,
 			);
 			productName = TicTacToe;
@@ -702,10 +698,6 @@
 		49886A4D2DAE515600F8B012 /* GameFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = GameFeature;
-		};
-		49886A4F2DAE515A00F8B012 /* ScoreboardFeature */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = ScoreboardFeature;
 		};
 		49886A522DAE595300F8B012 /* WelcomeFeature */ = {
 			isa = XCSwiftPackageProductDependency;

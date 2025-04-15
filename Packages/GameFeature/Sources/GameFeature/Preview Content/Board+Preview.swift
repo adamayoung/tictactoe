@@ -43,4 +43,14 @@ extension Board {
         )
     }
 
+    static var drawPreview: Board {
+        Board(
+            squares: [
+                [.player1, .player2, .player1],
+                [.player2, .player1, .player2],
+                [.player2, .player1, .player2]
+            ]
+        )
+    }
+
 }

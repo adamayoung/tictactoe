@@ -19,7 +19,6 @@ let package = Package(
     ],
 
     dependencies: [
-        .package(url: "https://github.com/adamayoung/swift-redux.git", from: "1.1.0"),
         .package(url: "https://github.com/uber/needle.git", exact: "0.25.1"),
     ],
 
@@ -27,7 +26,6 @@ let package = Package(
         .target(
             name: "WelcomeFeature",
             dependencies: [
-                .product(name: "SwiftRedux", package: "swift-redux"),
                 .product(name: "NeedleFoundation", package: "needle")
             ]
         ),

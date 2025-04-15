@@ -22,14 +22,18 @@ struct LoginState: Equatable, Sendable {
         player1Name: String = "",
         player1Color: Color = .blue,
         player2Name: String = "",
-        player2Color: Color = .red,
-        gameConfig: GameConfig? = nil
+        player2Color: Color = .red
     ) {
         self.player1Name = player1Name
         self.player1Color = player1Color
         self.player2Name = player2Name
         self.player2Color = player2Color
-        self.gameConfig = gameConfig
+        self.gameConfig = GameConfig(
+            player1Name: player1Name,
+            player1Color: player1Color,
+            player2Name: player2Name,
+            player2Color: player2Color
+        )
     }
 
 }

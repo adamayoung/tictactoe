@@ -73,6 +73,7 @@ public struct LoginView: View {
             }
         }
         .formStyle(.grouped)
+        .navigationTitle("New Game")
     }
 
 }
@@ -89,7 +90,40 @@ extension LoginView {
 
 }
 
-//
-//#Preview {
-//    LoginView()
-//}
+
+#Preview("Login - Empty") {
+    @Previewable @State var store = LoginStore(
+        initialState: .init(),
+        reducer: LoginReducer()
+    )
+
+    NavigationStack {
+        LoginView(
+            store: store,
+            startGameAction: { _ in
+                print("Start game")
+            }
+        )
+    }
+}
+
+#Preview("Login - With players") {
+    @Previewable @State var store = LoginStore(
+        initialState: .init(
+            player1Name: "Dave",
+            player1Color: .green,
+            player2Name: "John",
+            player2Color: .orange
+        ),
+        reducer: LoginReducer()
+    )
+
+    NavigationStack {
+        LoginView(
+            store: store,
+            startGameAction: { _ in
+                print("Start game")
+            }
+        )
+    }
+}

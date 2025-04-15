@@ -15,6 +15,21 @@ struct Game: Equatable, Sendable {
     private(set) var player1Score = 0
     private(set) var player2Score = 0
 
+    var winner: Player? {
+        switch currentRound.status {
+        case .player1Win:
+            return player1
+        case .player2Win:
+            return player2
+        default:
+            return nil
+        }
+    }
+
+    var isDraw: Bool {
+        currentRound.status == .draw
+    }
+
     init(
         player1: Player,
         player2: Player,
@@ -33,6 +48,8 @@ struct Game: Equatable, Sendable {
         if currentRound.currentPlayer == nil {
             self.currentRound.currentPlayer = player1
         }
+
+        self.currentRound.status = roundStatus()
     }
 
     func isSquareEmpty(row: Int, column: Int) -> Bool {
@@ -44,7 +61,7 @@ struct Game: Equatable, Sendable {
     }
 
     mutating func select(row: Int, column: Int) {
-        guard winner == nil else {
+        guard currentRound.status == .playing else {
             return
         }
 
@@ -61,17 +78,17 @@ struct Game: Equatable, Sendable {
         }()
 
         board.change(row: row, column: column, to: newSquare)
+        currentRound.status = roundStatus()
 
-        if let winner {
-            if winner == player1 {
-                player1Score += 1
-            }
-
-            if winner == player2 {
-                player2Score += 1
-            }
-
+        switch currentRound.status {
+        case .player1Win:
+            player1Score += 1
             return
+        case .player2Win:
+            player2Score += 1
+            return
+        default:
+            break
         }
 
         currentRound.currentPlayer = currentRound.currentPlayer == player1 ? player2 : player1
@@ -87,7 +104,11 @@ struct Game: Equatable, Sendable {
 
 extension Game {
 
-    var winner: Player? {
+    private func roundStatus() -> RoundStatus {
+        if board.squares.flatMap({ $0 }).count(where: { $0 == .empty }) == 0 {
+            return .draw
+        }
+
         let squares = board.squares
         let lines = [
             // Rows
@@ -105,13 +126,13 @@ extension Game {
 
         for line in lines {
             if line.allSatisfy({ $0 == .player1 }) {
-                return player1
+                return .player1Win
             } else if line.allSatisfy({ $0 == .player2 }) {
-                return player2
+                return .player2Win
             }
         }
 
-        return nil
+        return .playing
     }
 
 }

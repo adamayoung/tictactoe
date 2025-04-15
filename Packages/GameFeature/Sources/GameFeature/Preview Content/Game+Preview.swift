@@ -41,4 +41,12 @@ extension Game {
         )
     }
 
+    static var drawPreview: Game {
+        Game(
+            player1: .player1Preview,
+            player2: .player2Preview,
+            board: .drawPreview
+        )
+    }
+
 }

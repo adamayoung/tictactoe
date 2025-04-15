@@ -10,14 +10,14 @@ import Foundation
 struct Round: Equatable, Sendable {
 
     var currentPlayer: Player?
-    var winner: Player?
+    var status: RoundStatus
 
     init(
         currentPlayer: Player? = nil,
-        winner: Player? = nil
+        status: RoundStatus = .playing
     ) {
         self.currentPlayer = currentPlayer
-        self.winner = winner
+        self.status = status
     }
 
 }

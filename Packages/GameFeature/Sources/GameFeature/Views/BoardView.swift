@@ -34,7 +34,7 @@ struct BoardView: View {
         Rectangle()
             .foregroundStyle(.background)
             .frame(width: 100, height: 100)
-            .border(.black)
+            .border(Color.primary)
             .overlay {
                 marker(for: board.squares[row][column])
             }
@@ -66,7 +66,9 @@ struct BoardView: View {
         board: .emptyPreview,
         player1: .player1Preview,
         player2: .player2Preview,
-        onTap: { _, _ in }
+        onTap: { row, column in
+            print("Tapped row: \(row), column: \(column)")
+        }
     )
 }
 
@@ -75,7 +77,9 @@ struct BoardView: View {
         board: .midRoundPreview,
         player1: .player1Preview,
         player2: .player2Preview,
-        onTap: { _, _ in }
+        onTap: { row, column in
+            print("Tapped row: \(row), column: \(column)")
+        }
     )
 }
 
@@ -84,7 +88,9 @@ struct BoardView: View {
         board: .player1WinPreview,
         player1: .player1Preview,
         player2: .player2Preview,
-        onTap: { _, _ in }
+        onTap: { row, column in
+            print("Tapped row: \(row), column: \(column)")
+        }
     )
 }
 
@@ -93,6 +99,19 @@ struct BoardView: View {
         board: .player2WinPreview,
         player1: .player1Preview,
         player2: .player2Preview,
-        onTap: { _, _ in }
+        onTap: { row, column in
+            print("Tapped row: \(row), column: \(column)")
+        }
+    )
+}
+
+#Preview("Board - Draw") {
+    BoardView(
+        board: .drawPreview,
+        player1: .player1Preview,
+        player2: .player2Preview,
+        onTap: { row, column in
+            print("Tapped row: \(row), column: \(column)")
+        }
     )
 }

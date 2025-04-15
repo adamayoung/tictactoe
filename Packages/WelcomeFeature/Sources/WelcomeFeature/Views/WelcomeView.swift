@@ -9,14 +9,9 @@ import SwiftUI
 
 public struct WelcomeView: View {
 
-    @State private var store: WelcomeStore
     private var startAction: () -> Void
 
-    init(
-        store: WelcomeStore,
-        startAction: @escaping () -> Void
-    ) {
-        self._store = .init(wrappedValue: store)
+    init(startAction: @escaping () -> Void) {
         self.startAction = startAction
     }
 
@@ -41,13 +36,11 @@ public struct WelcomeView: View {
 }
 
 #Preview {
-    @Previewable @State var store = WelcomeStore(
-        initialState: .init(),
-        reducer: WelcomeReducer()
-    )
-
-    WelcomeView(
-        store: store,
-        startAction: {}
-    )
+    NavigationStack {
+        WelcomeView(
+            startAction: {
+                print("Start")
+            }
+        )
+    }
 }

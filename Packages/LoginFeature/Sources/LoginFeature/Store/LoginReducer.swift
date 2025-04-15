@@ -37,13 +37,11 @@ struct LoginReducer: Reducer {
 extension LoginReducer {
 
     private static func gameConfig(_ state: LoginState) -> GameConfig? {
-        guard !state.player1Name.isEmpty && !state.player2Name.isEmpty else {
-            return nil
-        }
-
-        return GameConfig(
-            player1: Player(name: state.player1Name, color: state.player1Color),
-            player2: Player(name: state.player2Name, color: state.player2Color)
+        GameConfig(
+            player1Name: state.player1Name,
+            player1Color: state.player1Color,
+            player2Name: state.player2Name,
+            player2Color: state.player2Color
         )
     }
 

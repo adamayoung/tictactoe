@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 public struct GameConfig: Equatable, Sendable {
 
@@ -15,6 +16,19 @@ public struct GameConfig: Equatable, Sendable {
     public init(player1: Player, player2: Player) {
         self.player1 = player1
         self.player2 = player2
+    }
+
+    init?(
+        player1Name: String,
+        player1Color: Color,
+        player2Name: String,
+        player2Color: Color
+    ) {
+        guard !player1Name.isEmpty else { return nil }
+        guard !player2Name.isEmpty else { return nil }
+
+        self.player1 = .init(name: player1Name, color: player1Color)
+        self.player2 = .init(name: player2Name, color: player2Color)
     }
 
 }

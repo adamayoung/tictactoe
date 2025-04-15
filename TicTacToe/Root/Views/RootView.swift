@@ -32,14 +32,22 @@ struct RootView: View {
 
     var body: some View {
         if let gameConfig {
-            NavigationStack {
-                gameViewBuilder.gameView(config: gameConfig) {
-                    endGame()
-                }
-            }
+            gameView(config: gameConfig)
         } else {
-            welcomeNavigationStackBuilder.welcomeNavigationStack { config in
-                startGame(config: config)
+            welcomeView
+        }
+    }
+
+    private var welcomeView: some View {
+        welcomeNavigationStackBuilder.welcomeNavigationStack { config in
+            startGame(config: config)
+        }
+    }
+
+    private func gameView(config: GameFeature.GameConfig) -> some View {
+        NavigationStack {
+            gameViewBuilder.gameView(config: config) {
+                endGame()
             }
         }
     }

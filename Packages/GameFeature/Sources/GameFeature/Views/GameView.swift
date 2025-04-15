@@ -16,6 +16,7 @@ public struct GameView: View {
     private var player2: Player { store.game.player2 }
     private var board: Board { store.game.board }
     private var winner: Player? { store.game.winner }
+    private var isDraw: Bool { store.game.isDraw }
     private var player1Score: Int { store.game.player1Score }
     private var player2Score: Int { store.game.player2Score }
     private var isFinishGameConfirmationAlertPresented: Binding<Bool> {
@@ -52,9 +53,13 @@ public struct GameView: View {
                 if let winner {
                     WinView(player: winner, nextRoundAction: nextRound)
                 }
+
+                if isDraw {
+                    DrawView(nextRoundAction: nextRound)
+                }
             }
             .frame(height: 100)
-            .opacity(winner == nil ? 0 : 1)
+            .opacity(winner == nil && !isDraw ? 0 : 1)
         }
         .alert(
             "Finish Game",
@@ -102,7 +107,9 @@ extension GameView {
     NavigationStack {
         GameView(
             store: store,
-            finishGameAction: {}
+            finishGameAction: {
+                print("Finish game")
+            }
         )
     }
 }
@@ -118,7 +125,9 @@ extension GameView {
     NavigationStack {
         GameView(
             store: store,
-            finishGameAction: {}
+            finishGameAction: {
+                print("Finish game")
+            }
         )
     }
 }
@@ -134,7 +143,9 @@ extension GameView {
     NavigationStack {
         GameView(
             store: store,
-            finishGameAction: {}
+            finishGameAction: {
+                print("Finish game")
+            }
         )
     }
 }
@@ -150,7 +161,27 @@ extension GameView {
     NavigationStack {
         GameView(
             store: store,
-            finishGameAction: {}
+            finishGameAction: {
+                print("Finish game")
+            }
+        )
+    }
+}
+
+#Preview("Game - Draw") {
+    @Previewable @State var store = GameStore(
+        initialState: .init(
+            game: .drawPreview
+        ),
+        reducer: GameReducer()
+    )
+
+    NavigationStack {
+        GameView(
+            store: store,
+            finishGameAction: {
+                print("Finish game")
+            }
         )
     }
 }
