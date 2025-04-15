@@ -1,0 +1,95 @@
+//
+//  LoginView.swift
+//  LoginFeature
+//
+//  Created by Adam Young on 15/04/2025.
+//
+
+import SwiftUI
+
+public struct LoginView: View {
+
+    @State private var store: LoginStore
+
+    private var player1Name: Binding<String> {
+        store.binding(extract: \.player1Name, embed: LoginAction.setPlayer1Name)
+    }
+
+    private var player1Color: Binding<Color> {
+        store.binding(extract: \.player1Color, embed: LoginAction.setPlayer1Color)
+    }
+
+    private var player2Name: Binding<String> {
+        store.binding(extract: \.player2Name, embed: LoginAction.setPlayer2Name)
+    }
+
+    private var player2Color: Binding<Color> {
+        store.binding(extract: \.player2Color, embed: LoginAction.setPlayer2Color)
+    }
+
+    private var canStartGame: Bool {
+        store.gameConfig != nil
+    }
+
+    private var startGameAction: (GameConfig) -> Void
+
+    init(
+        store: LoginStore,
+        startGameAction: @escaping (GameConfig) -> Void
+    ) {
+        self._store = .init(wrappedValue: store)
+        self.startGameAction = startGameAction
+    }
+
+    public var body: some View {
+        Form {
+            Section("Player 1") {
+                TextField(text: player1Name) {
+                    Text("Name")
+                }
+
+                ColorPicker("Color", selection: player1Color)
+            }
+
+            Section("Player 2") {
+                TextField(text: player2Name) {
+                    Text("Name")
+                }
+
+                ColorPicker("Color", selection: player2Color)
+            }
+
+            Section {
+                HStack {
+                    Spacer()
+                    Button {
+                        startGame()
+                    } label: {
+                        Text("Start")
+                    }
+                    Spacer()
+                }
+                .disabled(!canStartGame)
+            }
+        }
+        .formStyle(.grouped)
+    }
+
+}
+
+extension LoginView {
+
+    private func startGame() {
+        guard let gameConfig = store.gameConfig else {
+            return
+        }
+
+        startGameAction(gameConfig)
+    }
+
+}
+
+//
+//#Preview {
+//    LoginView()
+//}
