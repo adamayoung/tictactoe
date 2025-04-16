@@ -15,11 +15,12 @@ struct BoardView: View {
     var onTap: (Int, Int) -> Void
 
     var body: some View {
-        Grid(horizontalSpacing: -1, verticalSpacing: -1) {
+        Grid(horizontalSpacing: 5, verticalSpacing: 5) {
             ForEach(0..<board.squares.count, id: \.self) { rowIndex in
                 GridRow {
                     ForEach(0..<board.squares[rowIndex].count, id: \.self) { columnIndex in
                         cell(for: rowIndex, column: columnIndex)
+                            .padding(8)
                             .onTapGesture {
                                 self.onTap(rowIndex, columnIndex)
                             }
@@ -27,16 +28,17 @@ struct BoardView: View {
                 }
             }
         }
-        .animation(.easeInOut, value: board.squares)
+        .aspectRatio(contentMode: .fit)
+        .animation(.bouncy(duration: 0.25, extraBounce: 0.3), value: board.squares)
     }
 
     private func cell(for row: Int, column: Int) -> some View {
         Rectangle()
-            .foregroundStyle(.background)
-            .frame(width: 100, height: 100)
-            .border(Color.primary)
+            .foregroundStyle(Color.secondary.opacity(0.2))
+            .cornerRadius(30)
             .overlay {
                 marker(for: board.squares[row][column])
+                    .fontWeight(.black)
             }
     }
 
@@ -46,16 +48,18 @@ struct BoardView: View {
         case .empty:
             EmptyView()
         case .player1:
-            Text("X")
+            Image(systemName: "xmark")
+                .resizable()
+                .padding(30)
                 .foregroundStyle(player1.color)
-                .font(.largeTitle)
-                .fontWeight(.black)
+                .transition(.asymmetric(insertion: .scale, removal: .opacity))
 
         case .player2:
-            Text("O")
+            Image(systemName: "circle")
+                .resizable()
+                .padding(30)
                 .foregroundStyle(player2.color)
-                .font(.largeTitle)
-                .fontWeight(.black)
+                .transition(.asymmetric(insertion: .scale, removal: .opacity))
         }
     }
 

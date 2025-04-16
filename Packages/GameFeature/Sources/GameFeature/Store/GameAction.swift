@@ -10,6 +10,7 @@ import Foundation
 enum GameAction: Sendable {
 
     case squareTapped(row: Int, column: Int)
+    case setIsConfettiPresented(Bool)
     case nextRound
     case finishGame
     case setIsFinishGameAlertPresented(Bool)

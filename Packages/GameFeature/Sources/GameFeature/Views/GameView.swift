@@ -19,6 +19,9 @@ public struct GameView: View {
     private var isDraw: Bool { store.game.isDraw }
     private var player1Score: Int { store.game.player1Score }
     private var player2Score: Int { store.game.player2Score }
+    private var isConfettiPresented: Binding<Bool> {
+        store.binding(extract: \.isConfettiPresented, embed: GameAction.setIsConfettiPresented)
+    }
     private var isFinishGameConfirmationAlertPresented: Binding<Bool> {
         store.binding(extract: \.isFinishGameAlertPresented, embed: GameAction.setIsFinishGameAlertPresented)
     }
@@ -39,8 +42,8 @@ public struct GameView: View {
                 player1Score: player1Score,
                 player2Score: player2Score
             )
-            .frame(width: 300)
             .padding(.horizontal)
+            .frame(maxWidth: 600)
 
             BoardView(
                 board: board,
@@ -48,6 +51,7 @@ public struct GameView: View {
                 player2: player2,
                 onTap: onTap
             )
+            .frame(maxWidth: 600)
 
             HStack {
                 if let winner {
@@ -61,6 +65,8 @@ public struct GameView: View {
             .frame(height: 100)
             .opacity(winner == nil && !isDraw ? 0 : 1)
         }
+        .padding()
+        .displayConfetti(isActive: isConfettiPresented)
         .alert(
             "Finish Game",
             isPresented: isFinishGameConfirmationAlertPresented,
@@ -83,7 +89,7 @@ public struct GameView: View {
 extension GameView {
 
     private func onTap(_ row: Int, _ column: Int) {
-        Task { await store.send(.squareTapped(row: row, column: column), animation: .easeInOut) }
+        Task { await store.send(.squareTapped(row: row, column: column)) }
     }
 
     private func nextRound() {
