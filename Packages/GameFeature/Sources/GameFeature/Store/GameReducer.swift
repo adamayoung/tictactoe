@@ -15,7 +15,12 @@ struct GameReducer: Reducer {
 
         switch action {
         case .squareTapped(let row, let column):
+            guard state.game.winner == nil else {
+                break
+            }
+
             state.game.select(row: row, column: column)
+
             if state.game.winner != nil {
                 state.isConfettiPresented = true
             }
