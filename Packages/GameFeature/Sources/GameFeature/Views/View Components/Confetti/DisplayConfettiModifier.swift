@@ -28,31 +28,17 @@ struct DisplayConfettiModifier: ViewModifier {
     private let animationTime = 3.0
     private let fadeTime = 2.0
 
-    func body(content: Content) -> some View {
-        if #available(iOS 17.0, *) {
-            content
-                .overlay(isActive ? ConfettiContainerView().opacity(opacity) : nil)
-                .sensoryFeedback(.success, trigger: isActive)
-                .task {
-                    await handleAnimationSequence()
-                }
-        } else {
-            content
-                .overlay(isActive ? ConfettiContainerView().opacity(opacity) : nil)
-                .task {
-                    await handleAnimationSequence()
-                }
-        }
+    init(isActive: Binding<Bool>) {
+        self._isActive = isActive
+        self.opacity = isActive.wrappedValue ?  0 : 1
     }
 
-    private func handleAnimationSequence() async {
-        do {
-            try await Task.sleep(nanoseconds: UInt64(animationTime * 1_000_000_000))
-            withAnimation(.easeOut(duration: fadeTime)) {
-                opacity = 0
-            }
-        } catch {}
+    func body(content: Content) -> some View {
+        content
+            .overlay(isActive ? ConfettiContainerView().opacity(opacity) : nil)
+            .sensoryFeedback(.success, trigger: isActive)
     }
+
 
 }
 

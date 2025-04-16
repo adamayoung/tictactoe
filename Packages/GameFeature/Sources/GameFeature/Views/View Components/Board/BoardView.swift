@@ -21,6 +21,7 @@ struct BoardView: View {
                     ForEach(0..<board.squares[rowIndex].count, id: \.self) { columnIndex in
                         cell(for: rowIndex, column: columnIndex)
                             .padding(8)
+                            .sensoryFeedback(.success, trigger: board.squares)
                             .onTapGesture {
                                 self.onTap(rowIndex, columnIndex)
                             }

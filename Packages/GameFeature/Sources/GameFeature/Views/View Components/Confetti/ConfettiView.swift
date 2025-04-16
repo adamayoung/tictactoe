@@ -18,7 +18,7 @@ struct ConfettiView: View {
         Rectangle()
             .fill([Color.orange, Color.green, Color.blue, Color.red, Color.yellow].randomElement() ?? Color.green)
             .frame(width: 20, height: 20)
-            .onAppear(perform: { animate = true })
+            .onAppear { animate = true }
             .rotation3DEffect(.degrees(animate ? 360 : 0), axis: (x: 1, y: 0, z: 0))
             .animation(Animation.linear(duration: xSpeed).repeatForever(autoreverses: false), value: animate)
             .rotation3DEffect(.degrees(animate ? 360 : 0), axis: (x: 0, y: 0, z: 1), anchor: UnitPoint(x: anchor, y: anchor))

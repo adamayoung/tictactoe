@@ -9,7 +9,15 @@ import SwiftUI
 
 public struct LoginView: View {
 
+    private enum FocusField: Hashable {
+        case player1Name
+        case player1Color
+        case player2Name
+        case player2Color
+    }
+
     @State private var store: LoginStore
+    @FocusState private var focusedField: FocusField?
 
     private var player1Name: Binding<String> {
         store.binding(extract: \.player1Name, embed: LoginAction.setPlayer1Name)
@@ -47,16 +55,20 @@ public struct LoginView: View {
                 TextField(text: player1Name) {
                     Text("Name")
                 }
+                .focused($focusedField, equals: .player1Name)
 
                 ColorPicker("Color", selection: player1Color)
+                    .focused($focusedField, equals: .player1Color)
             }
 
             Section("Player 2") {
                 TextField(text: player2Name) {
                     Text("Name")
                 }
+                .focused($focusedField, equals: .player2Name)
 
                 ColorPicker("Color", selection: player2Color)
+                    .focused($focusedField, equals: .player2Color)
             }
 
             Section {
@@ -73,6 +85,9 @@ public struct LoginView: View {
             }
         }
         .formStyle(.grouped)
+        .onAppear {
+            focusedField = .player1Name
+        }
         .navigationTitle("New Game")
     }
 
